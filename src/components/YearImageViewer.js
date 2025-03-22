@@ -24,7 +24,7 @@ export default function YearImageViewer() {
 
   return (
     <div className="p-5 text-center">
-      <h1 className="text-2xl font-bold mb-4">10 years of STAR vs BUS Topology</h1>
+      <h1 className="text-2xl font-bold mb-4">10 years of STAR vs BUS Topology in CBSE SQPs</h1>
       <div className="flex flex-wrap justify-center gap-2 mb-4">
         {years.map((year) => (
           <button
