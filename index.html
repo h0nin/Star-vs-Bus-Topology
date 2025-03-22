@@ -1,68 +1,348 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAR vs BUS Topology [2015-2025]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+        }
 
-export default function YearImageViewer() {
-  const years = [
-    "2015-16", "2016-17", "2017-18", "2018-19", "2019-20", 
-    "2020-21", "2021-22", "2022-23", "2023-24", "2024-25"
-  ];
-  
-  const images = {
-    "2015-16": "https://i.imgur.com/l4D7tEf.png",
-    "2016-17": "https://i.imgur.com/7GpQtjW.png",
-    "2017-18": "https://i.imgur.com/cPYybmz.png",
-    "2018-19": "https://i.imgur.com/LvTwU0k.png",
-    "2019-20": "https://i.imgur.com/WUk39oW.png",
-    "2020-21": "https://i.imgur.com/IKYQAwZ.png",
-    "2021-22": "https://i.imgur.com/TNpeAeS.png",
-    "2022-23": "https://i.imgur.com/YX2djrc.png",
-    "2023-24": "https://i.imgur.com/PI0ug7Y.png",
-    "2024-25": "https://i.imgur.com/GaPSL2r.png",
-  };
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+        }
 
-  const [selectedYear, setSelectedYear] = useState(null);
-  const [showAll, setShowAll] = useState(false);
+        .container {
+            max-width: 1200px;
+            background-color: rgba(18, 18, 30, 0.8);
+            border: 1px solid #3a3a5c;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
 
-  return (
-    <div className="p-5 text-center">
-      <h1 className="text-2xl font-bold mb-4">10 years of STAR vs BUS Topology</h1>
-      <div className="flex flex-wrap justify-center gap-2 mb-4">
-        {years.map((year) => (
-          <button
-            key={year}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-            onClick={() => {
-              setSelectedYear(year);
-              setShowAll(false);
-            }}
-          >
-            {year}
-          </button>
-        ))}
-        <button
-          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-          onClick={() => setShowAll(true)}
-        >
-          Show All
-        </button>
-      </div>
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
 
-      {showAll ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {years.map((year) => (
-            <div key={year} className="text-center">
-              <h2 className="font-bold">{year}</h2>
-              <img src={images[year]} alt={year} className="mx-auto" />
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #7a7a9d;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #3a3a5c;
+            padding-bottom: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .year-btn {
+            padding: 8px 16px;
+            border-radius: 0;
+            border: 1px solid #3a3a5c;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #1e1e30;
+            color: #b8b8d0;
+            font-family: 'Roboto Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        .year-btn:hover {
+            background-color: #2a2a40;
+            border-color: #00ffff;
+            color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .year-btn.active {
+            background-color: #00ffff;
+            color: #1e1e30;
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .show-all-btn {
+            padding: 8px 16px;
+            border-radius: 0;
+            border: 1px solid #3a3a5c;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #1e1e30;
+            color: #b8b8d0;
+            font-family: 'Roboto Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        .show-all-btn:hover {
+            background-color: #2a2a40;
+            border-color: #00ffaa;
+            color: #00ffaa;
+            box-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+        }
+
+        .show-all-btn.active {
+            background-color: #00ffaa;
+            color: #1e1e30;
+            border-color: #00ffaa;
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px 0;
+            border: 1px dashed #3a3a5c;
+            background-color: rgba(30, 30, 48, 0.5);
+        }
+
+        .welcome-message p {
+            color: #b8b8d0;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        .welcome-message p:before {
+            content: "[ ";
+            color: #00ffff;
+        }
+
+        .welcome-message p:after {
+            content: " ]";
+            color: #00ffff;
+        }
+
+        .single-image {
+            text-align: center;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .single-image h2 {
+            display: inline-block;
+            background-color: #1e1e30;
+            padding: 8px 20px;
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #3a3a5c;
+            letter-spacing: 1px;
+        }
+
+        .single-image img {
+            max-width: 100%;
+            border: 2px solid #3a3a5c;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .image-card {
+            background-color: rgba(30, 30, 48, 0.7);
+            padding: 20px;
+            border: 1px solid #3a3a5c;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .image-card:hover {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .image-card h2 {
+            display: inline-block;
+            background-color: #1e1e30;
+            padding: 8px 20px;
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #3a3a5c;
+            letter-spacing: 1px;
+        }
+
+        .image-card img {
+            max-width: 100%;
+            border: 2px solid #3a3a5c;
+            transition: all 0.3s ease;
+        }
+
+        .image-card:hover img {
+            border-color: #00ffff;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7a7a9d;
+            font-size: 12px;
+            letter-spacing: 1px;
+            border-top: 1px solid #3a3a5c;
+            padding-top: 15px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Terminal-like cursor effect */
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background-color: #00ffff;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>STAR vs BUS Topology</h1>
+        <div class="subtitle">in 10 years of CBSE SQPs [2015-2025]</div>
+        
+        <div class="buttons" id="yearButtons">
+            <!-- Year buttons will be added here by JavaScript -->
+            <button class="show-all-btn" id="showAllBtn">VIEW ALL</button>
+        </div>
+        
+        <div id="content">
+            <div class="welcome-message">
+                <p>SELECT A YEAR TO VIEW TOPOLOGY<span class="terminal-cursor"></span></p>
             </div>
-          ))}
         </div>
-      ) : selectedYear ? (
-        <div>
-          <h2 className="text-xl font-semibold mb-2">{selectedYear}</h2>
-          <img src={images[selectedYear]} alt={selectedYear} className="mx-auto" />
+        
+        <div class="footer">
+            COMPLETELY MADE BY AI
         </div>
-      ) : (
-        <p className="text-gray-500">Click a year to view its image.</p>
-      )}
     </div>
-  );
-}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const years = [
+                "2015-16", "2016-17", "2017-18", "2018-19", "2019-20", 
+                "2020-21", "2021-22", "2022-23", "2023-24", "2024-25"
+            ];
+            
+            const images = {
+                "2015-16": "https://i.imgur.com/l4D7tEf.png",
+                "2016-17": "https://i.imgur.com/7GpQtjW.png",
+                "2017-18": "https://i.imgur.com/cPYybmz.png",
+                "2018-19": "https://i.imgur.com/LvTwU0k.png",
+                "2019-20": "https://i.imgur.com/WUk39oW.png",
+                "2020-21": "https://i.imgur.com/IKYQAwZ.png",
+                "2021-22": "https://i.imgur.com/TNpeAeS.png",
+                "2022-23": "https://i.imgur.com/YX2djrc.png",
+                "2023-24": "https://i.imgur.com/PI0ug7Y.png",
+                "2024-25": "https://i.imgur.com/GaPSL2r.png",
+            };
+            
+            const yearButtonsContainer = document.getElementById('yearButtons');
+            const showAllBtn = document.getElementById('showAllBtn');
+            const contentContainer = document.getElementById('content');
+            
+            // Add year buttons
+            years.forEach(year => {
+                const button = document.createElement('button');
+                button.className = 'year-btn';
+                button.textContent = year;
+                button.addEventListener('click', () => showYear(year));
+                yearButtonsContainer.insertBefore(button, showAllBtn);
+            });
+            
+            // Show All button event
+            showAllBtn.addEventListener('click', showAllYears);
+            
+            function showYear(year) {
+                // Reset active states
+                document.querySelectorAll('.year-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.year-btn').forEach(btn => {
+                    if (btn.textContent === year) {
+                        btn.classList.add('active');
+                    }
+                });
+                showAllBtn.classList.remove('active');
+                
+                // Show the selected year's image
+                contentContainer.innerHTML = `
+                    <div class="single-image">
+                        <h2>SQP ${year}</h2>
+                        <img src="${images[year]}" alt="${year} topology">
+                    </div>
+                `;
+            }
+            
+            function showAllYears() {
+                // Reset active states
+                document.querySelectorAll('.year-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                showAllBtn.classList.add('active');
+                
+                // Create list of all images
+                let gridHTML = '<div class="image-grid">';
+                
+                years.forEach(year => {
+                    gridHTML += `
+                        <div class="image-card">
+                            <h2>SQP ${year}</h2>
+                            <img src="${images[year]}" alt="${year} topology">
+                        </div>
+                    `;
+                });
+                
+                gridHTML += '</div>';
+                contentContainer.innerHTML = gridHTML;
+            }
+        });
+    </script>
+</body>
+</html>
