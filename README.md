@@ -2,7 +2,7 @@
 
 An interactive quiz application that tests your knowledge of STAR and BUS network topologies as they appear in CBSE Sample Question Papers (SQPs) from 2015-16 to 2024-25.
 
-![Screenshot of the application](https://i.imgur.com/EYJxDu2.png)
+![Screenshot of the application](https://i.imgur.com/kq469aP.png)
 
 ## Overview
 
